@@ -14,16 +14,19 @@ class LinearRegression():
         self.y_intercept = 0
 
         for _ in range(self.n_iters):
-            # Predict the line using y=mx+b
-            y_pred = np.dot(self.slope, X) + self.y_intercept
+            # Predict the line using y=ax+b
+            y_pred = np.dot(X, self.slope) + self.y_intercept
 
             # Calculate the error and use Gradient descent
-            dm = (1/n_samples) * np.dot(X, (y_pred - y))
+            da = (1/n_samples) * np.dot(X.T, (y_pred - y))
             db = (1/n_samples) * np.sum(y_pred - y)
 
-            self.slope = self.slope - self.lr * dm
+            self.slope = self.slope - self.lr * da
             self.y_intercept = self.y_intercept - self.lr * db
 
+    # Testing
     def predict(self, X):
-        y_pred = np.dot(self.slope, X) + self.y_intercept
+        if self.slope is None:
+            raise ValueError("Model must be fitted before predicting")
+        y_pred = np.dot(X, self.slope) + self.y_intercept
         return y_pred
