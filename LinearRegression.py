@@ -17,7 +17,7 @@ class LinearRegression():
             # Predict the line using y=ax+b
             y_pred = np.dot(X, self.slope) + self.y_intercept
 
-            # Calculate the error and use Gradient descent
+            # Minimize MSE using the Gradient descent method
             da = (1/n_samples) * np.dot(X.T, (y_pred - y))
             db = (1/n_samples) * np.sum(y_pred - y)
 
